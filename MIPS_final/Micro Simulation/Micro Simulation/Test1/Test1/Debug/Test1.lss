@@ -1,0 +1,225 @@
+
+Test1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000013a  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000002  00800060  0000013a  000001ce  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000002  00800062  00800062  000001d0  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000001d0  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000200  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 000000b0  00000000  00000000  00000240  2**3
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000933  00000000  00000000  000002f0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 0000064d  00000000  00000000  00000c23  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000004ac  00000000  00000000  00001270  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000044  00000000  00000000  0000171c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000035c  00000000  00000000  00001760  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000094  00000000  00000000  00001abc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000020  00000000  00000000  00001b50  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	ea e3       	ldi	r30, 0x3A	; 58
+  68:	f1 e0       	ldi	r31, 0x01	; 1
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+  70:	a2 36       	cpi	r26, 0x62	; 98
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
+
+00000076 <__do_clear_bss>:
+  76:	20 e0       	ldi	r18, 0x00	; 0
+  78:	a2 e6       	ldi	r26, 0x62	; 98
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	a4 36       	cpi	r26, 0x64	; 100
+  82:	b2 07       	cpc	r27, r18
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 54 00 	call	0xa8	; 0xa8 <main>
+  8a:	0c 94 9b 00 	jmp	0x136	; 0x136 <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <write_to_flash>:
+
+uint16_t value = 7;
+uint16_t output;
+
+void write_to_flash(uint16_t *address, uint16_t data) {
+    cli(); // Disable interrupts during flash write
+  92:	f8 94       	cli
+    eeprom_busy_wait();
+  94:	e1 99       	sbic	0x1c, 1	; 28
+  96:	fe cf       	rjmp	.-4      	; 0x94 <write_to_flash+0x2>
+    eeprom_write_word(address, data);
+  98:	0e 94 79 00 	call	0xf2	; 0xf2 <eeprom_write_word>
+    sei(); // Enable interrupts after flash write
+  9c:	78 94       	sei
+  9e:	08 95       	ret
+
+000000a0 <init_LED>:
+}
+
+void init_LED() {
+    // Initialize LED pin as output
+    DDRB = 0xFF;  // Assuming you are using PORTB as output
+  a0:	8f ef       	ldi	r24, 0xFF	; 255
+  a2:	87 bb       	out	0x17, r24	; 23
+	PORTB = 0x00;
+  a4:	18 ba       	out	0x18, r1	; 24
+  a6:	08 95       	ret
+
+000000a8 <main>:
+}
+
+int main(void)
+{
+    init_LED();  // Initialize LED pin
+  a8:	0e 94 50 00 	call	0xa0	; 0xa0 <init_LED>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  ac:	2f e7       	ldi	r18, 0x7F	; 127
+  ae:	8a e1       	ldi	r24, 0x1A	; 26
+  b0:	96 e0       	ldi	r25, 0x06	; 6
+  b2:	21 50       	subi	r18, 0x01	; 1
+  b4:	80 40       	sbci	r24, 0x00	; 0
+  b6:	90 40       	sbci	r25, 0x00	; 0
+  b8:	e1 f7       	brne	.-8      	; 0xb2 <main+0xa>
+  ba:	00 c0       	rjmp	.+0      	; 0xbc <main+0x14>
+  bc:	00 00       	nop
+	_delay_ms(2000);
+    // Set up EEPROM emulation (internal Flash write)
+    write_to_flash((uint16_t*)0, value);
+  be:	60 91 60 00 	lds	r22, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  c2:	70 91 61 00 	lds	r23, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+  c6:	80 e0       	ldi	r24, 0x00	; 0
+  c8:	90 e0       	ldi	r25, 0x00	; 0
+  ca:	0e 94 49 00 	call	0x92	; 0x92 <write_to_flash>
+
+    // Read from EEPROM (internal Flash read)
+    eeprom_busy_wait();
+  ce:	e1 99       	sbic	0x1c, 1	; 28
+  d0:	fe cf       	rjmp	.-4      	; 0xce <main+0x26>
+    output = eeprom_read_word((uint16_t*)0);
+  d2:	80 e0       	ldi	r24, 0x00	; 0
+  d4:	90 e0       	ldi	r25, 0x00	; 0
+  d6:	0e 94 73 00 	call	0xe6	; 0xe6 <eeprom_read_word>
+  da:	80 93 62 00 	sts	0x0062, r24	; 0x800062 <__data_end>
+  de:	90 93 63 00 	sts	0x0063, r25	; 0x800063 <__data_end+0x1>
+	PORTB = output;
+  e2:	88 bb       	out	0x18, r24	; 24
+  e4:	ff cf       	rjmp	.-2      	; 0xe4 <main+0x3c>
+
+000000e6 <eeprom_read_word>:
+  e6:	a8 e1       	ldi	r26, 0x18	; 24
+  e8:	b0 e0       	ldi	r27, 0x00	; 0
+  ea:	42 e0       	ldi	r20, 0x02	; 2
+  ec:	50 e0       	ldi	r21, 0x00	; 0
+  ee:	0c 94 80 00 	jmp	0x100	; 0x100 <eeprom_read_blraw>
+
+000000f2 <eeprom_write_word>:
+  f2:	0e 94 8e 00 	call	0x11c	; 0x11c <eeprom_write_byte>
+  f6:	27 2f       	mov	r18, r23
+  f8:	0c 94 8f 00 	jmp	0x11e	; 0x11e <eeprom_write_r18>
+
+000000fc <eeprom_read_block>:
+  fc:	dc 01       	movw	r26, r24
+  fe:	cb 01       	movw	r24, r22
+
+00000100 <eeprom_read_blraw>:
+ 100:	fc 01       	movw	r30, r24
+ 102:	e1 99       	sbic	0x1c, 1	; 28
+ 104:	fe cf       	rjmp	.-4      	; 0x102 <eeprom_read_blraw+0x2>
+ 106:	06 c0       	rjmp	.+12     	; 0x114 <eeprom_read_blraw+0x14>
+ 108:	ff bb       	out	0x1f, r31	; 31
+ 10a:	ee bb       	out	0x1e, r30	; 30
+ 10c:	e0 9a       	sbi	0x1c, 0	; 28
+ 10e:	31 96       	adiw	r30, 0x01	; 1
+ 110:	0d b2       	in	r0, 0x1d	; 29
+ 112:	0d 92       	st	X+, r0
+ 114:	41 50       	subi	r20, 0x01	; 1
+ 116:	50 40       	sbci	r21, 0x00	; 0
+ 118:	b8 f7       	brcc	.-18     	; 0x108 <eeprom_read_blraw+0x8>
+ 11a:	08 95       	ret
+
+0000011c <eeprom_write_byte>:
+ 11c:	26 2f       	mov	r18, r22
+
+0000011e <eeprom_write_r18>:
+ 11e:	e1 99       	sbic	0x1c, 1	; 28
+ 120:	fe cf       	rjmp	.-4      	; 0x11e <eeprom_write_r18>
+ 122:	9f bb       	out	0x1f, r25	; 31
+ 124:	8e bb       	out	0x1e, r24	; 30
+ 126:	2d bb       	out	0x1d, r18	; 29
+ 128:	0f b6       	in	r0, 0x3f	; 63
+ 12a:	f8 94       	cli
+ 12c:	e2 9a       	sbi	0x1c, 2	; 28
+ 12e:	e1 9a       	sbi	0x1c, 1	; 28
+ 130:	0f be       	out	0x3f, r0	; 63
+ 132:	01 96       	adiw	r24, 0x01	; 1
+ 134:	08 95       	ret
+
+00000136 <_exit>:
+ 136:	f8 94       	cli
+
+00000138 <__stop_program>:
+ 138:	ff cf       	rjmp	.-2      	; 0x138 <__stop_program>

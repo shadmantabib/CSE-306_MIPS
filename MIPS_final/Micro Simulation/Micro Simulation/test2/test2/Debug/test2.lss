@@ -1,0 +1,287 @@
+
+test2.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000196  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000008  00800060  00000196  0000020a  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  00000212  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000244  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 000000b8  00000000  00000000  00000280  2**3
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000a08  00000000  00000000  00000338  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000069c  00000000  00000000  00000d40  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000004f8  00000000  00000000  000013dc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000084  00000000  00000000  000018d4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000387  00000000  00000000  00001958  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000204  00000000  00000000  00001cdf  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000028  00000000  00000000  00001ee3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+   8:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+   c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  10:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  14:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  18:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  1c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  20:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  24:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  28:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  2c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  30:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  34:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  38:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  3c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  40:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  44:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  48:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  4c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  50:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e6 e9       	ldi	r30, 0x96	; 150
+  68:	f1 e0       	ldi	r31, 0x01	; 1
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+  70:	a8 36       	cpi	r26, 0x68	; 104
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
+  76:	0e 94 74 00 	call	0xe8	; 0xe8 <main>
+  7a:	0c 94 c9 00 	jmp	0x192	; 0x192 <_exit>
+
+0000007e <__bad_interrupt>:
+  7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000082 <write_to_flash>:
+
+#define F_CPU 1000000UL  // Set the clock frequency (1 MHz for example, adjust as needed)
+#include <util/delay.h>
+
+void write_to_flash(uint16_t *address, uint16_t data) {
+    cli(); // Disable interrupts during flash write
+  82:	f8 94       	cli
+    eeprom_busy_wait();
+  84:	e1 99       	sbic	0x1c, 1	; 28
+  86:	fe cf       	rjmp	.-4      	; 0x84 <write_to_flash+0x2>
+    eeprom_write_word(address, data);
+  88:	0e 94 a7 00 	call	0x14e	; 0x14e <eeprom_write_word>
+    sei(); // Enable interrupts after flash write
+  8c:	78 94       	sei
+  8e:	08 95       	ret
+
+00000090 <init_LED>:
+}
+
+void init_LED() {
+    // Initialize LED pin as output
+    DDRB = 0xFF;  // Assuming you are using PORTB as output
+  90:	8f ef       	ldi	r24, 0xFF	; 255
+  92:	87 bb       	out	0x17, r24	; 23
+    PORTB = 0x00;
+  94:	18 ba       	out	0x18, r1	; 24
+  96:	08 95       	ret
+
+00000098 <write_hex_data_to_flash>:
+}
+
+void write_hex_data_to_flash(const uint16_t *hex_data, uint16_t length) {
+  98:	ef 92       	push	r14
+  9a:	ff 92       	push	r15
+  9c:	0f 93       	push	r16
+  9e:	1f 93       	push	r17
+  a0:	cf 93       	push	r28
+  a2:	df 93       	push	r29
+    for (uint16_t i = 0; i < length; ++i) {
+  a4:	61 15       	cp	r22, r1
+  a6:	71 05       	cpc	r23, r1
+  a8:	c1 f0       	breq	.+48     	; 0xda <write_hex_data_to_flash+0x42>
+  aa:	7b 01       	movw	r14, r22
+  ac:	08 2f       	mov	r16, r24
+  ae:	19 2f       	mov	r17, r25
+  b0:	c0 e0       	ldi	r28, 0x00	; 0
+  b2:	d0 e0       	ldi	r29, 0x00	; 0
+        write_to_flash((uint16_t*)(i * sizeof(uint16_t)), hex_data[i]);
+  b4:	f8 01       	movw	r30, r16
+  b6:	61 91       	ld	r22, Z+
+  b8:	71 91       	ld	r23, Z+
+  ba:	8f 01       	movw	r16, r30
+  bc:	ce 01       	movw	r24, r28
+  be:	88 0f       	add	r24, r24
+  c0:	99 1f       	adc	r25, r25
+  c2:	0e 94 41 00 	call	0x82	; 0x82 <write_to_flash>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  c6:	83 ec       	ldi	r24, 0xC3	; 195
+  c8:	99 e0       	ldi	r25, 0x09	; 9
+  ca:	01 97       	sbiw	r24, 0x01	; 1
+  cc:	f1 f7       	brne	.-4      	; 0xca <write_hex_data_to_flash+0x32>
+  ce:	00 c0       	rjmp	.+0      	; 0xd0 <write_hex_data_to_flash+0x38>
+  d0:	00 00       	nop
+    DDRB = 0xFF;  // Assuming you are using PORTB as output
+    PORTB = 0x00;
+}
+
+void write_hex_data_to_flash(const uint16_t *hex_data, uint16_t length) {
+    for (uint16_t i = 0; i < length; ++i) {
+  d2:	21 96       	adiw	r28, 0x01	; 1
+  d4:	ec 16       	cp	r14, r28
+  d6:	fd 06       	cpc	r15, r29
+  d8:	69 f7       	brne	.-38     	; 0xb4 <write_hex_data_to_flash+0x1c>
+        write_to_flash((uint16_t*)(i * sizeof(uint16_t)), hex_data[i]);
+        _delay_ms(10);  // Delay for stability in writing to Flash (adjust as needed)
+    }
+}
+  da:	df 91       	pop	r29
+  dc:	cf 91       	pop	r28
+  de:	1f 91       	pop	r17
+  e0:	0f 91       	pop	r16
+  e2:	ff 90       	pop	r15
+  e4:	ef 90       	pop	r14
+  e6:	08 95       	ret
+
+000000e8 <main>:
+
+int main(void)
+{
+  e8:	cf 93       	push	r28
+  ea:	df 93       	push	r29
+  ec:	cd b7       	in	r28, 0x3d	; 61
+  ee:	de b7       	in	r29, 0x3e	; 62
+  f0:	28 97       	sbiw	r28, 0x08	; 8
+  f2:	0f b6       	in	r0, 0x3f	; 63
+  f4:	f8 94       	cli
+  f6:	de bf       	out	0x3e, r29	; 62
+  f8:	0f be       	out	0x3f, r0	; 63
+  fa:	cd bf       	out	0x3d, r28	; 61
+    init_LED();  // Initialize LED pin
+  fc:	0e 94 48 00 	call	0x90	; 0x90 <init_LED>
+
+    // Example hex data (replace with your own data)
+    uint16_t hex_data[] = {0x0001, 0x004, 0x0002, 0x0007};
+ 100:	88 e0       	ldi	r24, 0x08	; 8
+ 102:	e0 e6       	ldi	r30, 0x60	; 96
+ 104:	f0 e0       	ldi	r31, 0x00	; 0
+ 106:	de 01       	movw	r26, r28
+ 108:	11 96       	adiw	r26, 0x01	; 1
+ 10a:	01 90       	ld	r0, Z+
+ 10c:	0d 92       	st	X+, r0
+ 10e:	8a 95       	dec	r24
+ 110:	e1 f7       	brne	.-8      	; 0x10a <main+0x22>
+    uint16_t data_length = sizeof(hex_data) / sizeof(hex_data[0]);
+	uint16_t output;
+	PORTB =0x00;
+ 112:	18 ba       	out	0x18, r1	; 24
+ 114:	2f e7       	ldi	r18, 0x7F	; 127
+ 116:	8a e1       	ldi	r24, 0x1A	; 26
+ 118:	96 e0       	ldi	r25, 0x06	; 6
+ 11a:	21 50       	subi	r18, 0x01	; 1
+ 11c:	80 40       	sbci	r24, 0x00	; 0
+ 11e:	90 40       	sbci	r25, 0x00	; 0
+ 120:	e1 f7       	brne	.-8      	; 0x11a <main+0x32>
+ 122:	00 c0       	rjmp	.+0      	; 0x124 <main+0x3c>
+ 124:	00 00       	nop
+    _delay_ms(2000);
+
+    // Write hex data to internal Flash memory
+    write_hex_data_to_flash(hex_data, data_length);
+ 126:	64 e0       	ldi	r22, 0x04	; 4
+ 128:	70 e0       	ldi	r23, 0x00	; 0
+ 12a:	ce 01       	movw	r24, r28
+ 12c:	01 96       	adiw	r24, 0x01	; 1
+ 12e:	0e 94 4c 00 	call	0x98	; 0x98 <write_hex_data_to_flash>
+	eeprom_busy_wait();
+ 132:	e1 99       	sbic	0x1c, 1	; 28
+ 134:	fe cf       	rjmp	.-4      	; 0x132 <main+0x4a>
+	output = eeprom_read_word((uint16_t*)(1 * sizeof(uint16_t)));
+ 136:	82 e0       	ldi	r24, 0x02	; 2
+ 138:	90 e0       	ldi	r25, 0x00	; 0
+ 13a:	0e 94 a1 00 	call	0x142	; 0x142 <eeprom_read_word>
+	PORTB = output;
+ 13e:	88 bb       	out	0x18, r24	; 24
+ 140:	ff cf       	rjmp	.-2      	; 0x140 <main+0x58>
+
+00000142 <eeprom_read_word>:
+ 142:	a8 e1       	ldi	r26, 0x18	; 24
+ 144:	b0 e0       	ldi	r27, 0x00	; 0
+ 146:	42 e0       	ldi	r20, 0x02	; 2
+ 148:	50 e0       	ldi	r21, 0x00	; 0
+ 14a:	0c 94 ae 00 	jmp	0x15c	; 0x15c <eeprom_read_blraw>
+
+0000014e <eeprom_write_word>:
+ 14e:	0e 94 bc 00 	call	0x178	; 0x178 <eeprom_write_byte>
+ 152:	27 2f       	mov	r18, r23
+ 154:	0c 94 bd 00 	jmp	0x17a	; 0x17a <eeprom_write_r18>
+
+00000158 <eeprom_read_block>:
+ 158:	dc 01       	movw	r26, r24
+ 15a:	cb 01       	movw	r24, r22
+
+0000015c <eeprom_read_blraw>:
+ 15c:	fc 01       	movw	r30, r24
+ 15e:	e1 99       	sbic	0x1c, 1	; 28
+ 160:	fe cf       	rjmp	.-4      	; 0x15e <eeprom_read_blraw+0x2>
+ 162:	06 c0       	rjmp	.+12     	; 0x170 <eeprom_read_blraw+0x14>
+ 164:	ff bb       	out	0x1f, r31	; 31
+ 166:	ee bb       	out	0x1e, r30	; 30
+ 168:	e0 9a       	sbi	0x1c, 0	; 28
+ 16a:	31 96       	adiw	r30, 0x01	; 1
+ 16c:	0d b2       	in	r0, 0x1d	; 29
+ 16e:	0d 92       	st	X+, r0
+ 170:	41 50       	subi	r20, 0x01	; 1
+ 172:	50 40       	sbci	r21, 0x00	; 0
+ 174:	b8 f7       	brcc	.-18     	; 0x164 <eeprom_read_blraw+0x8>
+ 176:	08 95       	ret
+
+00000178 <eeprom_write_byte>:
+ 178:	26 2f       	mov	r18, r22
+
+0000017a <eeprom_write_r18>:
+ 17a:	e1 99       	sbic	0x1c, 1	; 28
+ 17c:	fe cf       	rjmp	.-4      	; 0x17a <eeprom_write_r18>
+ 17e:	9f bb       	out	0x1f, r25	; 31
+ 180:	8e bb       	out	0x1e, r24	; 30
+ 182:	2d bb       	out	0x1d, r18	; 29
+ 184:	0f b6       	in	r0, 0x3f	; 63
+ 186:	f8 94       	cli
+ 188:	e2 9a       	sbi	0x1c, 2	; 28
+ 18a:	e1 9a       	sbi	0x1c, 1	; 28
+ 18c:	0f be       	out	0x3f, r0	; 63
+ 18e:	01 96       	adiw	r24, 0x01	; 1
+ 190:	08 95       	ret
+
+00000192 <_exit>:
+ 192:	f8 94       	cli
+
+00000194 <__stop_program>:
+ 194:	ff cf       	rjmp	.-2      	; 0x194 <__stop_program>
